@@ -74,8 +74,8 @@ function createBot() {
     }
   });
 
-  bot.on("kicked", console.log('❌ O bot foi Kickado'),console.log);
-  bot.on("error", console.log('❌ Deu erro aqui'), console.log);
+  bot.on("kicked",console.log);
+  bot.on("error",console.log);
   bot.on("end", createBot);
 
   bot.on("time", () => {});
