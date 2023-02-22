@@ -17,10 +17,11 @@ function createBot() {
 
   const bot = mineflayer.createBot({
     viewDistance: 1,
-    host: "coloca o IP aqui", // <= Coloca seu IP aqui
+    host: "Gabrielcamicia999.aternos.me", // <= Coloca seu IP aqui
     version: "1.17",
     username: `${getContent}`,
-    port: 24466, // <= Coloca sua PORTA aqui
+    port: 44480
+<= Coloca sua PORTA aqui
     plugins: [AutoAuth],
     AutoAuth: "bot112022",
   });
