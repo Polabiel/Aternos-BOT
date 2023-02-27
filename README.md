@@ -39,7 +39,7 @@ $ npm start
 ```
 
 > **Nota**
-> Se você estiver usando o Linux Bash para Windows, [consulte este guia](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash -shell/) ou use `node` no prompt de comando.
+> Se você estiver usando o Linux Bash para Windows, [consulte este guia](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) ou use `node` no prompt de comando.
 
 ## Créditos
 
