@@ -76,10 +76,12 @@ function createBot() {
 
   bot.on("kicked",console.log);
   bot.on("error",console.log);
-  bot.on("end", createBot);
+  bot.on("end", () => {
+    setTimeout(() => createBot(), 4 * 60 * 1000);
+  });
 
   bot.on("time", () => {});
 }
 
 createBot();
-console.log("💀 Foi iniciado o BOT 💀");
+console.log("Foi iniciado o BOT 😎");
