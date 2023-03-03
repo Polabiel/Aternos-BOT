@@ -22,7 +22,7 @@ Esse software contem risco de banir sua conta dentro do <a href="http://aternos.
 
 ## Como usar
 
-faça um bifurcação ou clone e execute o programa, você precisará de [Git](https://git-scm.com) e [Node.js](https://nodejs.org/en/download/) (que vem com [npm](http:// npmjs.com)) instalado em seu computador. Na sua linha de comando:
+faça um bifurcação ou clone e execute o programa, você precisará de [Git](https://git-scm.com) e [Node.js](https://nodejs.org/en/download/) (que vem com [npm](http:// npmjs.com) instalado em seu computador. Na sua linha de comando:
 
 ```bash
 # Clonar este repositório
