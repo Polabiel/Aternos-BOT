@@ -3,33 +3,30 @@ const pvp = require("mineflayer-pvp").plugin;
 const { pathfinder } = require("mineflayer-pathfinder");
 const armorManager = require("mineflayer-armor-manager");
 const AutoAuth = require("mineflayer-auto-auth");
+const Movements = require('mineflayer-pathfinder').Movements;
+const goals = require('mineflayer-pathfinder').goals;
 
 function createBot() {
   const nicknames = [
-    "bot",
-    "escreveaqui",
-    "aternos",
-    "chaco-bot",
-    "passa no canal do polabiel",
-    "minecraft4d"
+    "gabryelcomY",
   ];
   const getContent = nicknames[Math.floor(Math.random() * nicknames.length)];
 
   const bot = mineflayer.createBot({
     viewDistance: 1,
-    host: "coloca o IP aqui", // <= Coloca seu IP aqui
+    host: "hazedecria.aternos.me", // <= Coloca seu IP aqui
     version: "1.17",
     username: `${getContent}`,
-    port: 24466, // <= Coloca sua PORTA aqui
-    plugins: [AutoAuth],
+    port: 41074, // <= Coloca sua PORTA aqui
+    plugins: [AutoAuth, armorManager, pathfinder],
     AutoAuth: "bot112022",
   });
   bot.loadPlugin(pvp);
   bot.loadPlugin(armorManager);
   bot.loadPlugin(pathfinder);
 
-// ------------ ------------ Não venha mexer aqui ------------ -----------
-  
+  // ------------ ------------ Não venha mexer aqui ------------ -----------
+
   bot.on("playerCollect", (collector) => {
     if (collector !== bot.entity) return;
 
@@ -74,13 +71,64 @@ function createBot() {
     }
   });
 
-  bot.on("kicked",console.log);
-  bot.on("error",console.log);
+  let followingPlayer = null;
+  let movements;
+
+  bot.loadPlugin(pathfinder);
+
+  bot.on('chat', (username, message) => {
+    if (followingPlayer && message.toLowerCase().includes('parar')) {
+      if (username === followingPlayer) {
+        stopFollowingPlayer();
+      }
+    } else if (message.toLowerCase().includes('seguir')) {
+      if (!followingPlayer) {
+        followingPlayer = username;
+        console.log(`Seguindo o jogador ${followingPlayer}.`);
+        startFollowingPlayer();
+      } else {
+        console.log(`O bot já está seguindo o jogador ${followingPlayer}.`);
+      }
+    }
+  });
+
+  bot.on('playerLeft', (player) => {
+    if (followingPlayer && player.username === followingPlayer) {
+      console.log(`${followingPlayer} saiu do jogo. Parando de seguir.`);
+      stopFollowingPlayer();
+    }
+  });
+
+  function startFollowingPlayer() {
+    const player = bot.players[followingPlayer];
+    if (player) {
+      movements = new Movements(bot, bot.pathfinder);
+      bot.pathfinder.setMovements(movements);
+      bot.pathfinder.setGoal(new goals.GoalFollow(player.entity, 1), true);
+    }
+  }
+
+  function stopFollowingPlayer() {
+    console.log(`Parando de seguir o jogador ${followingPlayer}.`);
+    followingPlayer = null;
+    if (movements) {
+      bot.pathfinder.setGoal(null);
+      movements = null;
+    }
+  }
+
+  bot.on("kicked", console.log);
+  bot.on("error", console.log);
   bot.on("end", () => {
     setTimeout(() => createBot(), 4 * 60 * 1000);
   });
 
-  bot.on("time", () => {});
+
+  bot.on("kicked", console.log);
+  bot.on("error", console.log);
+  bot.on("end", () => createBot());
+
+  bot.on("time", () => { });
 }
 
 createBot();
